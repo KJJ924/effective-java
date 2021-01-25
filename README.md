@@ -346,7 +346,7 @@ static class CARD{
 | **of()**                       | 여러 매개변수를 받아 적합한 타입의 인스턴스를 반환하는 집계 메소드.                                                                                                    ex) Enum.of() |
 | **valueOf()**                  | from 과 of 의 더 자세한 버전                                                                                                                                                                            ex) BigInteger.valueOf() |
 | **instance()  getInstance()**  | (매개 변수를 받는다면) 매개변수로 명시한 인스턴스를 반환하지만 같은 인스턴스임을 보장하지는 않는다.                                                        ex)StackWalker.getInstance() |
-| **create()** **newInstance()** | instance 혹은 getInstance와 같지만 매번 새로운 인스턴스를 생성해 봔환함을 보장한다.                                                                                       ex) Array.newInstance() |
+| **create()** **newInstance()** | instance 혹은 getInstance와 같지만 매번 새로운 인스턴스를 생성해 반환함을 보장한다.                                                                                       ex) Array.newInstance() |
 | **getType()**                  | getInstance와 같으나, 생성할 클래스가 아닌 다른 클래스에 팩토리 메소드를 정의할 때 쓴다.                                                                             ex)Files.getFileStore() |
 | **newType()**                  | newInstance와 같으나, 생성할 클래스가 아닌 다른 클래스에 팩토리 메소드를 정의할 때 쓴다.                                                                                 ex)Files.newBufferedReader() |
 | **type()**                     | getType과 newType의 간결한 버전                                                                                                                                                                                  ex)Collections.list() |
