@@ -351,3 +351,469 @@ static class CARD{
 | **newType()**                  | newInstance와 같으나, 생성할 클래스가 아닌 다른 클래스에 팩토리 메소드를 정의할 때 쓴다.                                                                                 ex)Files.newBufferedReader() |
 | **type()**                     | getType과 newType의 간결한 버전                                                                                                                                                                                  ex)Collections.list() |
 
+---
+
+**ITEM 2**
+
+# **생성자에 매개변수가 많다면 빌더를 고려하라.**
+
+
+
+앞서 살펴본 정적 팩토리와 생성자에는 똑같은 제약이 존재한다.
+
+-> **선택적 매개변수가 많을 때 적절히 대응하기 어려움.**
+
+
+
+다음과 같은 문제를 해결하기위한 3가지 방법을 알아보자.
+
+- **점층적 생성자 패턴(Teslescoping Constuructor Pattern)**
+- **자바빈즈 패턴(JavaBeans Pattern)**
+- **빌더 패턴(Builder Ppattern)**
+
+
+
+
+
+해당 User 클래스를  통해 위 3가지 방법을 알아보자. 
+
+```java
+public class User{
+    private final String name;
+    private final int age;
+    private final String local;
+    private final String phone;
+ }
+```
+
+다음과 같은 User 클래스가 존재 할때 name과 age는 필수적으로 받고 local, phone 은 선택적으로 받아 객체를 생성하고 싶다.
+
+
+
+
+
+##  1. **점층적 생성자 패턴(teslescoping constuructor pattern)** 
+
+```java
+public class User{
+    private final String name;
+    private final int age;
+    private final String local;
+    private final String phone;
+
+    public User(String name, int age) {
+        this(name,age,"","");
+    }
+
+    public User(String name, int age, String local) {
+        this(name,age,local,"");
+
+    }
+    
+    // local을 설정하기 싫으면 new User("name",17,"","phone") 을 사용해야함
+    public User(String name, int age, String local, String phone) {
+        this.name = name;
+        this.age = age;
+        this.local = local;
+        this.phone = phone;
+    }
+```
+
+다음 코드와 같이 점층적 생성자 패턴 이용하면 클라이언트 측 코드에서 해당 **매개변수가 무엇을 뜻하는지 파악하기 매우힘들다**.
+
+또한 **설정을 원치않는 매개변수를 직접 값을 지정해줘야한다**.
+
+
+
+예시
+
+```java
+new User("jaejoon",10); // 필수 값만 설정하고 싶을때
+new User("jaejoon",10,"서울"); // 필수값 + 지역
+new User("jaejoon",10,"","010-0000-0000"); //필수값 + 핸드폰번호
+new User("jaejoon",10,"서울","010-0000-0000") ; // 필수값+ 지역+ 핸드폰번호
+
+// 위와 같은 인스턴스 생성방법은 매개변수의 순서가 변경되면 치명적인 버그가 발생할 수 있다.
+// new User("서울",10,"JaeJoon","010-0000-0000") 인 경우
+```
+
+
+
+하지만  점층적 생정자 패턴을 사용하여 코딩을 해도 무방하다. 
+
+**그러나 매개변수 개수가 많아지면 클라이언트 코드를 작성하거나 읽기 어렵다.**
+
+
+
+---
+
+
+
+## 2.**자바빈즈 패턴(JavaBeans Pattern)**
+
+
+
+자바 빈즈 패턴은 평소에 많이 쓰는 **Setter 메서드**를 이용하여 원하는 매개변수 값을 설정하는 방법이다.
+
+```java
+public class User{
+    private String name =""; // 점층적 생성자 패턴과 다른점은 fianl 키워드를 사용할 수 없음으로 객체를 불변으로 만들지못함.
+    private int age= 0;   // 또한 필수 값들이 설정되었는지 확인이 불가능하다.
+    private String local="";
+    private String phone="";
+    
+    public User(){}
+    
+    //setter
+    public void setName(String name) {  // 하지만 setter를 통해 매개변수들을 점층적 생정자패턴보다 쉽게 설정할 수 있다.
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }	
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+}
+```
+
+
+
+예시
+
+```java
+User user =new User();
+user.setName("jaejoon");
+user.setage(10);
+user.setLocal("서울"); // 설정은 클라이언트 마음대로..
+user.setPhone("010-0000-0000");
+```
+
+
+
+다음 코드처럼 자바빈즈 **패턴에서는 객체 하나를 만들려면 메서드를 여러번 호출해야하고**
+
+**객체가 완전히 생성되기 전까지는 일관성(consistency)가 무너진다.**
+
+
+
+또한 외부 에서 User 의 값을 조작할수 있음으로 객체의 안정성이 매우 취약해진다.
+
+---
+
+
+
+## **빌더 패턴(Builder Ppattern)**
+
+
+
+**객체를 직접 만들지 않고 ** 빌더(Builder) 를 통해 필수 매개변수만으로 생성자를 호출해 빌더 객체를 생성한다.
+
+그리고 빌더(Builder) 가 제공하는 세터메서들로 원하는 선택 매개변수들을 설정한다.
+
+마지막으로 bulid 메서드를 호출하여 객체를 최종적으로 생성한다.
+
+
+
+예제
+
+```java
+public class User{
+    private final String name; //fianl 키워드를 사용할 수 있음
+    private final int age;
+    private final String local;
+    private final String phone;
+    
+    public static class Builder{
+        private final String name;
+        private final int age;
+
+        private String local = ""; //필수 값이 아닌 값들은 자동으로 "" 로 설정할 수 있음
+        private String phone = "";
+        public Builder(String name, int age) { // 필수 값을 강제 할 수 있음.
+            this.name = name;
+            this.age = age;
+        }
+        public Builder local(String local){ // 빌더 자신을 반환하기때문에 메서드 체인닝(method chaning)을 지원 할수있음
+            this.local=local;
+            return this;
+        }
+        public Builder phone(String phone){
+            this.phone = phone;
+            return this;
+        }
+        public User build(){
+            return new User(this);
+        }
+    }
+
+    public User(Builder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+        this.local = builder.local;
+        this.phone = builder.phone;
+    }
+    
+}
+```
+
+
+
+예시
+
+```java
+User user = new Item2.User.Builder("재준", 10) //필수값을 강제 할 수 있음
+    .local("서울") //선택 매개변수
+    .phone("010") //선택 매개변수
+    .build();
+```
+
+
+
+객체를 생성한 예시를 보면 앞서 살펴본 패턴들 보다 빌더 패턴이 더 읽기 쉽고 생성하기 쉬운 객체가 되었다.
+
+또한 불변객체를 유지할 수 있음으로 안전하다.
+
+
+
+빌더 패턴은 앞서 살펴 본 패턴의 장점만 가지고 객체를 생성하는 방법이다.
+
+
+
+하지만 빌더 패턴을 쓰는것도  점층적 생성자 보다는 간결하지만 장황하게 작성하는 경우가 생긴다.
+
+하지만 API는 시간이 지날수록 매개변수가 많아지는 경향이 있음으로 빌더패턴을 애초에 시작하는 편이 더 좋다
+
+
+
+또한 Lombok을 사용하면 빌더를 손쉽게 만들 수 있다.
+
+참고: https://projectlombok.org/features/Builder
+
+
+
+**핵심은**
+
+`생성자나 정적 팩터리가 처리해야 할 매개변수가 많다면 빌더 패턴을 선택하는 게 더 낫다.`
+
+`매개변수 중 다수가 필수가 아니거나 같은 타입이면 특히 더 그렇다.` 
+
+`빌더는 점층적 생성자보다 클라이언트 코드를 읽고 쓰기가 훨씬 간결하고, 자바빈즈보다 훨씬 안전하다.`
+
+
+---
+
+**ITEM 3**
+
+# **private 생성자나 열거타입으로 싱글턴임을 보증하라**
+
+
+
+싱글턴(Singleton) 이란 인스턴스를 오직 하나만 생성할 수 있는 클래스를 말한다.
+
+
+
+해당 아이템에선 싱글턴을 만드는 3가지 방법을 소개하고 있다.
+
+
+
+- **public static final  방식** 
+- **static factory method 방식**
+- **원소가 하나인 Enum 타입**  
+
+
+
+---------------------
+
+
+
+## **public static final  방식**
+
+
+
+해당 방식은 생성자를 private 으로 선언하여 접근을 막고
+
+접근할 수 있는 수단을 public staitc fianl 필드로 제한 하는 것이다.
+
+
+
+코드로 바로 알아보자
+
+```java
+public class PublicStaticFinalSingleton {
+	//초기화 할때 한번만 설정됨으로 하나의 인스턴스만을 보장 할 수 있음
+    public static final PublicStaticFinalSingleton INSTANCE  = new PublicStaticFinalSingleton(); 
+
+	// 생성자를 private 으로 선언하여 외부 클라이언트에서 접근 불가능하게 선언!
+    private PublicStaticFinalSingleton() {} 
+}
+```
+
+
+
+**main**
+
+```java
+public static void main(String[] args){
+        PublicStaticFinalSingleton instance = PublicStaticFinalSingleton.INSTANCE;
+        PublicStaticFinalSingleton instance1 =  new PublicStaticFinalSingleton() //불가능
+}  
+```
+
+
+
+하지만 이런 방식에도 자바 리플렉션을 이용하여 private 생성자에 접근하여 인스턴스를 생성할 수 있다.
+
+```java
+public static void main(String[] args) throws 예외생략{
+    PublicStaticFinalSingleton instance = PublicStaticFinalSingleton.INSTANCE;
+
+    Constructor<PublicStaticFinalSingleton> constructor = PublicStaticFinalSingleton.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+    PublicStaticFinalSingleton newInstance = constructor.newInstance();
+    System.out.println(instance==newInstance); //false
+}
+```
+
+이러한 행위를 막고 싶다면  private 생성자 내에서 두번째 객체가 생성되지 못하게 막으면 된다.
+
+
+
+**PublicStaticFinalSingleton() 생성자 코드 변경**
+
+```java
+public class PublicStaticFinalSingleton {
+
+    public static final PublicStaticFinalSingleton INSTANCE  = new PublicStaticFinalSingleton();
+
+    public static boolean status; //flag 변수
+
+    private PublicStaticFinalSingleton() {
+        if(status){
+            throw new IllegalStateException("이 객체는 여러개의 인스턴스를 생성할수 없습니다");
+        }
+        status = true;
+    }
+}
+
+```
+
+
+
+**이 public staitc fianl  방식의 장점 은**
+
+해당 클래스가 싱글턴인 것을 API에 명백히 드러낼수 있고
+
+public staitc  필드가 fianl 이니  절대로 다른 객체를 참조할 수없다.
+
+
+
+---
+
+
+
+## **static factory method 방식**
+
+해당 방식은 생성자를 private 으로 선언하여 접근막고 필드도 private 으로 접근을 제한하여
+
+정적 팩토리 메서드를 통해 객체의 인스턴스에 접근할 수 있도록 하는 방법이다.
+
+
+
+코드를 살펴보자
+
+```java
+public class StaticFactoryMethodSingleton {
+
+    private static final StaticFactoryMethodSingleton INSTANCE = new StaticFactoryMethodSingleton();
+
+    private StaticFactoryMethodSingleton() {
+    }
+	
+    //정적 팩토리 메소드를 통해 객체의 인스턴스에 접근가능함.
+    public static StaticFactoryMethodSingleton getInstance(){
+        return INSTANCE;
+    }
+}
+```
+
+
+
+**main**
+
+```java
+public static void main(String[] args){
+    StaticFactoryMethodSingleton instance = StaticFactoryMethodSingleton.getInstance();
+	StaticFactoryMethodSingleton instance1 = new StaticFactoryMethodSingleton() //불가능
+}
+```
+
+
+
+해당 방식도 자바 리플렉션으로 접근이 가능하니  필요하다면
+
+public staitc fianl 방식에서 살펴본 것처럼 예외처리를 해줘야한다.
+
+
+
+**해당 static factory method 방식의 장점**
+
+클라이언트 코드를 수정하지 않고도 싱글톤을 사용할지 안할지 변경 할 수 있다.
+
+```java
+public class StaticFactoryMethodSingleton {
+
+    private static final StaticFactoryMethodSingleton INSTANCE = new StaticFactoryMethodSingleton();
+
+    private StaticFactoryMethodSingleton() {
+    }
+
+    public static StaticFactoryMethodSingleton getInstance(){
+        // 해당 부분만 변경하여 싱글톤 사용여부를 변경가능
+        return new StaticFactoryMethodSingleton(); 
+    }
+}
+```
+
+
+
+해당 메소드를 Supplier<> 에 대한 메소드레퍼런스로 사용 할 수 있다.
+
+```java
+Supplier<StaticFactoryMethodSingleton> supplier =  StaticFactoryMethodSingleton::getInstance;
+StaticFactoryMethodSingleton staticFactoryMethodSingleton3 = supplier.get();
+```
+
+
+
+---
+
+## **원소가 하나인 Enum 타입** 
+
+해당 방식은 앞서 살펴본 방식과 비슷하지만 리플렉션 같은 예외사항을 생각할 필요없다.
+
+하지만 이런방법은 실제에서 사용 할 수 있을지 의문이든다..
+
+또한 이러한 방식은 Enum외 클래스를 상속해야한다면 사용할수없다.
+
+
+
+```java
+public enum EnumSingleton {
+    INSTANCE
+
+ //.. methond
+}
+```
+
+
+
+가장 중요한 포인트는 **원소가 하나인 열거타입을 선언**해서 만드는 부분이다.
+
+
