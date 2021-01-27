@@ -20,6 +20,7 @@ public class Item1 {
             this.name = name;
         }
 
+
         static User Name(String name){
             User user = new User();
             user.name =name;
@@ -50,7 +51,7 @@ public class Item1 {
                     Payment toss = null;
                     try {
                         // 5. 정적 팩토리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도된다.
-                        Constructor<?> tossConstructor = Class.forName("FQCN").getConstructor();
+                        Constructor<?> tossConstructor = Class.forName("FQCN(Toss)").getConstructor();
                         toss  = (Payment) tossConstructor.newInstance();
                     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
                             | IllegalAccessException | InvocationTargetException e) {
