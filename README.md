@@ -1,5 +1,6 @@
 # effective-java
- :pencil2: 이펙티브 자바 3판 정리
+
+:pencil2: 이펙티브 자바 3판 정리
 
 
 ---
@@ -33,7 +34,7 @@
 
 ---
 
- **장점**
+**장점**
 
 ### **1. 이름을 가질 수 있다.**
 
@@ -94,7 +95,7 @@ public User(String local) { // 메소드 시그니처 중복으로 오류 발생
 }
 ```
 
-하지만 정적 팩터리 메서드에는 제약이없다. 
+하지만 정적 팩터리 메서드에는 제약이없다.
 
 
 
@@ -149,7 +150,7 @@ User.getAdmin() , User.getTestUser() 를 통해 **같은 객체를 반환하는 
 
 
 
-반환할 객체의 클래스를 자유롭게 선택할 수 있다 
+반환할 객체의 클래스를 자유롭게 선택할 수 있다
 
 -> 클래스에서 만들어줄 객체의 클래스를 선택 할 수 있는 **유연함이 생김**
 
@@ -242,9 +243,9 @@ static class CARD{
 }
 ```
 
-payment(String card) 에서 card 에들어오는 매개변수가 에 따라 
+payment(String card) 에서 card 에들어오는 매개변수가 에 따라
 
-구체적인 클래스들  SamSungPayment , KakaoPayment 이  반환된다 하지만 클라이언트측에서 반환받는 객체는 
+구체적인 클래스들  SamSungPayment , KakaoPayment 이  반환된다 하지만 클라이언트측에서 반환받는 객체는
 
 Payment 인터페이스이기 때문에 구체적인 클래스를 몰라도 얼마든지 사용하는데 문제가 없다.
 
@@ -338,7 +339,7 @@ static class CARD{
 
 
 
- **정적 팩토리에서 흔히 사용하는 명명 방식.**
+**정적 팩토리에서 흔히 사용하는 명명 방식.**
 
 | **명명 규칙**                  | **설명**                                                     |
 | ------------------------------ | ------------------------------------------------------------ |
@@ -375,7 +376,7 @@ static class CARD{
 
 
 
-해당 User 클래스를  통해 위 3가지 방법을 알아보자. 
+해당 User 클래스를  통해 위 3가지 방법을 알아보자.
 
 ```java
 public class User{
@@ -392,7 +393,7 @@ public class User{
 
 
 
-##  1. **점층적 생성자 패턴(teslescoping constuructor pattern)** 
+##  1. **점층적 생성자 패턴(teslescoping constuructor pattern)**
 
 ```java
 public class User{
@@ -439,7 +440,7 @@ new User("jaejoon",10,"서울","010-0000-0000") ; // 필수값+ 지역+ 핸드�
 
 
 
-하지만  점층적 생정자 패턴을 사용하여 코딩을 해도 무방하다. 
+하지만  점층적 생정자 패턴을 사용하여 코딩을 해도 무방하다.
 
 **그러나 매개변수 개수가 많아지면 클라이언트 코드를 작성하거나 읽기 어렵다.**
 
@@ -602,7 +603,7 @@ User user = new Item2.User.Builder("재준", 10) //필수값을 강제 할 수 �
 
 `생성자나 정적 팩터리가 처리해야 할 매개변수가 많다면 빌더 패턴을 선택하는 게 더 낫다.`
 
-`매개변수 중 다수가 필수가 아니거나 같은 타입이면 특히 더 그렇다.` 
+`매개변수 중 다수가 필수가 아니거나 같은 타입이면 특히 더 그렇다.`
 
 `빌더는 점층적 생성자보다 클라이언트 코드를 읽고 쓰기가 훨씬 간결하고, 자바빈즈보다 훨씬 안전하다.`
 
@@ -623,9 +624,9 @@ User user = new Item2.User.Builder("재준", 10) //필수값을 강제 할 수 �
 
 
 
-- **public static final  방식** 
+- **public static final  방식**
 - **static factory method 방식**
-- **원소가 하나인 Enum 타입**  
+- **원소가 하나인 Enum 타입**
 
 
 
@@ -794,7 +795,7 @@ StaticFactoryMethodSingleton staticFactoryMethodSingleton3 = supplier.get();
 
 ---
 
-## **원소가 하나인 Enum 타입** 
+## **원소가 하나인 Enum 타입**
 
 해당 방식은 앞서 살펴본 방식과 비슷하지만 리플렉션 같은 예외사항을 생각할 필요없다.
 
@@ -816,4 +817,130 @@ public enum EnumSingleton {
 
 가장 중요한 포인트는 **원소가 하나인 열거타입을 선언**해서 만드는 부분이다.
 
+
+
+---
+
+**ITEM 4**
+# **인스턴스화를 막으려거든 private 생성자를 사용하라**
+
+
+
+Class 내부에 정적 메서드와 정적필드만을 담은 클래스가 존재할때 이러한 class 는 굳이 인스턴스를 만들어서 사용하지 않아도된다.
+
+왜냐하면 정적 메서드와 정적 필드 만을 담은 Class 들은 대부분 유틸리티로 사용할려고 생성한 클래스이다.
+
+따라서 유틸리티 클래스는 인스턴스로 만들어서 쓰려고 설계한 클래스가 아니기 때문에. 인스턴스화를 막는 것이 좋다.
+
+
+
+이 책에서 인스턴스화를 막는 방법으로 두 가지 방법을 설명하고 있다 .
+
+1. **추상 클래스로 만든다.**
+2. **private 생성자를 만든다.**
+
+하나 씩 알아보자..
+
+
+
+## 1.추상 클래스로 만든다.
+
+말 그대로 abstract 클래스는 new 키워드를 이용하여 인스턴스화를 진행 할 수 없기 때문에
+
+spirng 의 유틸리티 클래스는 이 방법을 사용하고 있다.
+
+
+
+코드를 보자.
+
+```java
+public abstract class AbstractUtilityClass {
+    static void hello(String name){
+        System.out.println("hello" + name);
+    }
+
+    public static void main(String[] args) {
+        // new 키워드를 이용한 인스턴스화 를 막을수는 있지만 ...??
+        AbstractUtilityClass utilityClass = new AbstractUtilityClass(); // error
+    }
+}
+```
+
+위 코드처럼 new 키워드를 이용하여 인스턴스를 생성할 수 없다. 하지만
+
+
+
+abstarc 클래스의 하위 클래스를 만들어 인스턴스화를 할 수 있다.
+
+
+
+코드를보자.
+
+```java
+public abstract class AbstractUtilityClass {
+    static void hello(String name){
+        System.out.println("hello" + name);
+    }
+
+    static class subClass extends AbstractUtilityClass{
+    }
+
+
+    public static void main(String[] args) {
+
+        // new 키워드를 이용한 인스턴스화 를 막을수는 있지만 ...??
+        //AbstractUtilityClass utilityClass = new AbstractUtilityClass();
+
+        //상속 받았음으로 AbstractUtilityClass 의 기본 생성자를 호출하게 됨으로 인스턴스가 생성이됨..
+        subClass utilityClass1 =new subClass();
+    }
+}
+```
+
+이러한 문제점이 존재하지만 생성된 인스턴스를 통해 static 메서드를 사용할 수는 없음으로 그렇게 큰 문제는 안될꺼 같다.
+
+하지만 책에서는 인스턴스화를 완벽하게 막을수없기 때문에 abstarct 클래스로 만드는것보다.
+
+Private 생성자를 만드는 것을 추천하고 있다.
+
+---
+
+
+
+## **Private 생성자를 만든다**
+
+
+
+말 그대로 private 생성자를 추가하여 인스턴스화를 막는 방법이다.
+
+
+
+코드를 바로 보자.
+
+```java
+//인스턴스화를 막으려거든 private 생성자를 사용하라
+public class UtilityClass {
+
+    //생성자가 있지만 호출할 수 없는 생성자이기 때문에
+    //직관적이지 않다. 그래서 다음과 같이 의미를 나타내는 아래처럼 주석을 쓰자.
+    //기본 생성자가 만들어지는 것을 막는다 (인스턴스 방지용).
+    private UtilityClass(){ }
+
+    static void hello(String name){
+        System.out.println("hello"+name);
+    }
+}
+```
+
+이 처럼 명시적인 생성자가 private이니 외부에서 인스턴스를 생성 할 수 없다.
+
+또한 상속을 불가능하게 하는 효과도 존재한다.
+
+하지만 생성자가 존재하는데 호출하지 못한다. 이러한 코드는 명시적이지 못하니 위 코드와같이 주석을 반드시 달아주자.
+
+
+
+이러한 방법은 대표적으로 Arrays 클래스 잘 나타내준다.
+
+<img width="564" alt="Arrays private 생성자" src="https://user-images.githubusercontent.com/64793712/106268544-9b845e00-626e-11eb-8855-bd41adb12577.png">
 
