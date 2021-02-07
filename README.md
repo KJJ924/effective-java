@@ -2252,7 +2252,7 @@ void userClone(){
 
 
 
-![image-20210207223156992](/Users/kimjajan/Library/Application Support/typora-user-images/image-20210207223156992.png)
+![image](https://user-images.githubusercontent.com/64793712/107149065-fa965100-6999-11eb-83ed-20cec15fd925.png)
 
 자 다음과같은 그림처럼 두개의 인스턴스(원본,클론객체)가 같은 Info인스턴스를 바라보고 있음으로 발생하는 문제이다.
 
