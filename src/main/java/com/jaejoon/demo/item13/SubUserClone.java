@@ -9,8 +9,4 @@ public class SubUserClone extends UserClone {
         super(name, info);
     }
 
-    @Override
-    protected UserClone clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
-    }
 }

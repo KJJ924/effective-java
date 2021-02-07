@@ -2,7 +2,8 @@ package com.jaejoon.demo.item13;
 
 public class HashTable {
     private Entry[] bucket;
-    static class Entry{
+
+    static class Entry {
         final Object key;
         Object value;
         Entry next;
@@ -12,14 +13,21 @@ public class HashTable {
             this.value = value;
             this.next = next;
         }
-        Entry deepCopy(){
-            return new Entry(key,value,next ==null ? null: next.deepCopy());
+
+        Entry deepCopy() {
+            return new Entry(key, value, next == null ? null : next.deepCopy());
         }
 
-        @Override
-        protected Object clone() throws CloneNotSupportedException {
-            HashTable result = (HashTable) super.clone(); // 안에있는 엔트리는 같은 참조값을 바라보고있음.
+    }
+
+    @Override
+    public HashTable clone() {
+        try {
+            HashTable result = (HashTable) super.clone();
+            result.bucket = result.bucket.clone();
             return result;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }

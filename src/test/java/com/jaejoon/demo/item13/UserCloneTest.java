@@ -12,17 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserCloneTest {
 
     @Test
-    void userClone() throws CloneNotSupportedException {
-        UserClone userClone = new UserClone("name" ,new Info(19,"seoul"));
-        UserClone clone = userClone.clone();
-        Info info = clone.getInfo();
-        info.setAge(10);
+    void userClone(){
+        UserClone resource = new UserClone("name" ,new Info(19,"seoul"));
+        UserClone resourceClone = resource.clone();
+        Info info = resourceClone.getInfo(); // 클론객체의 info 객체를 가져와
+        info.setAge(10);//값을 변경하면?
 
-        userClone.setName("editName");
-//        assertThat(clone.getName()).isEqualTo(userClone.getName());
-        assertThat(clone).isNotEqualTo(userClone);
-        assertThat(clone.getName()).isEqualTo("name");
-
+        assertThat(resource.getInfo().getAge()).isEqualTo(19); //원본 데이터의 값은 그대로 유지되어야한다.
     }
 
 }
