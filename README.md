@@ -26,7 +26,7 @@
 11. [equals를 재정의하려거든 hashcode도 재정의하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item11/item11.md)
 12. [toString을 항상 재정의하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item12/item12.md)
 13. [clone 재정의는 주의해서 진행하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item13/item13.md)
-14. [Comparable을 구현할지 고려하라]()
+14. [Comparable을 구현할지 고려하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item14/item14.md)
 
 
 
