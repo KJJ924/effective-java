@@ -27,7 +27,7 @@
 12. [toString을 항상 재정의하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item12/item12.md)
 13. [clone 재정의는 주의해서 진행하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item13/item13.md)
 14. [Comparable을 구현할지 고려하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item14/item14.md)
-
+15. [클래스와 맴버의 접근 권한을 최소화하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item15/item15.md)
 
 
 
