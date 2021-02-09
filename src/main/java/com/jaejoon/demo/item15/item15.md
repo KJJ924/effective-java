@@ -146,7 +146,8 @@
   }
   ```
 
-  ![image-20210210061903767](/Users/kimjajan/Library/Application Support/typora-user-images/image-20210210061903767.png)
+  ![스크린샷 2021-02-10 오전 6 18 24](https://user-images.githubusercontent.com/64793712/107437680-b316ed00-6b72-11eb-9be5-37e741d524f4.png)
+
 
 
 
