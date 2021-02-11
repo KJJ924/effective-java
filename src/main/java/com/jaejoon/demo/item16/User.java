@@ -37,7 +37,7 @@ public class User { //public class 일때.
 
     public void setPhone(String phone) {
         if(!phone.matches("[0-9]{11}")){
-            throw new IllegalArgumentException("11자리수를 맞춰주세요");
+            throw new IllegalArgumentException("11자리수를 맞춰주세요"); //간단하게 자리수 만 확인..
         }
         this.phone = phone;
     }
