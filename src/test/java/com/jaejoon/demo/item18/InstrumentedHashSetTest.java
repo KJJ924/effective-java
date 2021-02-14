@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,7 +34,7 @@ class InstrumentedHashSetTest {
 
 
     @Test
-    @DisplayName("컴포지션 패턴을 사용하여 기존 발생한 문제를 해결한다.")
+    @DisplayName("컴포지션 패턴을 이하여 기존 발생한 문제를 해결한다.")
     void addAllCount_success(){
         CountingSet<String> s  = new CountingSet<>(new HashSet<>());
 
@@ -41,6 +42,19 @@ class InstrumentedHashSetTest {
 
         assertThat(s.getCount()).isEqualTo(3);
 
+    }
+
+    @Test
+    @DisplayName("Set 인터페이스 의 구현체에 대해서 count 기능을 이용할수 있다")
+    void test(){
+        CountingSet<String> s = new CountingSet<>(new HashSet<>());
+        CountingSet<String> t = new CountingSet<>(new TreeSet<>());
+
+        s.addAll(List.of("String","String2","String3"));
+        t.addAll(List.of("String","String2","String3"));
+
+        assertThat(s.getCount()).isEqualTo(3);
+        assertThat(t.getCount()).isEqualTo(3);
     }
 
 }

@@ -2,17 +2,12 @@ package com.jaejoon.demo.item18;
 
 import java.util.*;
 
-public class ForwardingSet<E> extends HashSet<E> {
+public class ForwardingSet<E> implements Set<E> {
 
     private final Set<E> set;
 
     public ForwardingSet(Set<E> set){
         this.set = set;
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return set.iterator();
     }
 
     @Override
@@ -31,6 +26,21 @@ public class ForwardingSet<E> extends HashSet<E> {
     }
 
     @Override
+    public Iterator<E> iterator() {
+        return set.iterator();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return set.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return set.toArray(a);
+    }
+
+    @Override
     public boolean add(E e) {
         return set.add(e);
     }
@@ -41,6 +51,26 @@ public class ForwardingSet<E> extends HashSet<E> {
     }
 
     @Override
+    public boolean containsAll(Collection<?> c) {
+        return set.containsAll(c);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        return set.addAll(c);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return set.retainAll(c);
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return set.removeAll(c);
+    }
+
+    @Override
     public void clear() {
         set.clear();
     }
@@ -48,10 +78,5 @@ public class ForwardingSet<E> extends HashSet<E> {
     @Override
     public Spliterator<E> spliterator() {
         return set.spliterator();
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        return set.addAll(c);
     }
 }
