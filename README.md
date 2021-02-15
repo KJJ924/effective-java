@@ -41,7 +41,8 @@ dkansk924@naver.com 으로 메일 보내주세요
 16. [public 클래스에서는 public 필드가 아닌 접근자 메서드를 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item16/item16.md)
 17. [변경 가능성을 최소화하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item17/item17.md)
 18. [상속보다는 컴포지션을 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item18/item18.md)
-
+19.
+20. [추상 클래스보다는 인터페이스를 우선하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item20/item20.md)
 
 
 
