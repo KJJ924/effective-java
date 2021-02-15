@@ -12,7 +12,17 @@ class PhoneTest {
         Phone iPhone = new IPhone();
         Phone galaxyPhone = new GalaxyPhone();
 
-        iPhone.process();
         galaxyPhone.process();
+    }
+
+    @Test
+    void LGPhone(){
+        Phone LGPhone = new AbstractPhone() {
+            @Override
+            public void greeting() {
+                System.out.println("hello LG");
+            }
+        };
+        LGPhone.process();
     }
 }

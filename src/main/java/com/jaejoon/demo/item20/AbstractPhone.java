@@ -2,15 +2,15 @@ package com.jaejoon.demo.item20;
 
 public abstract class AbstractPhone implements Phone{
 
-    @Override
-    public void booting() {
+    protected void booting() {
         System.out.println("booting");
     }
 
-    @Override
-    public void display() {
+    protected void display() {
         System.out.println("turn on display");
     }
+
+    protected abstract void greeting();
 
     @Override
     public void process() {
