@@ -44,5 +44,5 @@ dkansk924@naver.com 으로 메일 보내주세요
 19.
 20. [추상 클래스보다는 인터페이스를 우선하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item20/item20.md)
 21. [인터페이스는 구현하는 쪽을 생각해 설계하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item21/item21.md)
-
+22. [인터페이스는 타입을 정의하는 용도로만 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item22/item22.md)
 
