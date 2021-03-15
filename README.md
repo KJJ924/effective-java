@@ -52,4 +52,4 @@ dkansk924@naver.com 으로 메일 보내주세요
 
 
 ## 메서드
-55. [옵셔널 반환은 신중히 하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item55/55_옵셔널_반환은_신중히_하라_김재준.md)
+55. [옵셔널 반환은 신중히 하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/Item55/55_옵셔널_반환은_신중히_하라_김재준.md)
