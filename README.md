@@ -53,3 +53,7 @@ dkansk924@naver.com 으로 메일 보내주세요
 
 ## 메서드
 55. [옵셔널 반환은 신중히 하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/Item55/55_옵셔널_반환은_신중히_하라_김재준.md)
+
+## 일반적인 프로그래밍 원칙
+
+64. [객체는 인터페이스를 사용해 참조하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item64/객체는_인터페이스를_사용해_참조하라_김재준.md)
