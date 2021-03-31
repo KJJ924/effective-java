@@ -61,3 +61,7 @@ dkansk924@naver.com 으로 메일 보내주세요
 ## 예외
 
 72. [표준 예외를 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item72/72_표준_예외를_사용하라_김재준.md)
+
+## 동시성
+
+83. [지연 초기화는 신중히 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item83/83_지연_초기화는_신중히_사용하라.md)
