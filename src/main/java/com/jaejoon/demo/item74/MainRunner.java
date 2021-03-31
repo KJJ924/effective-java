@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <p> {@code NullPointerException} 지정한 요소에 null 이 들어오는 경우 발생합니다.</p>
  */
-public class Exam {
+public class MainRunner {
 
     /**
      * @throws SQLException SQL 이 잘못된 경우
