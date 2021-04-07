@@ -71,3 +71,7 @@ dkansk924@naver.com 으로 메일 보내주세요
 ## 동시성
 
 83. [지연 초기화는 신중히 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item83/83_지연_초기화는_신중히_사용하라.md)
+
+## 직렬화
+
+86. [Serializable 을 구현할지는 신중히 결정하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item86/86_Serializable을_구현할지는_신중히_결정하라_김재준.md)
