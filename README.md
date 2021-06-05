@@ -51,6 +51,8 @@ dkansk924@naver.com 으로 메일 보내주세요
 21. [인터페이스는 구현하는 쪽을 생각해 설계하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item21/item21.md)
 22. [인터페이스는 타입을 정의하는 용도로만 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item22/item22.md)
 
+## 제네릭
+32. [제네릭과 가변인수를 함께 쓸 때는 신중하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item32/제네릭과_가변인수를_함께_쓸_때는_신중하라.md)
 ## 람다와 스트림
 42. [익명 클래스보다는 람다를 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item42/item42.md)
 46. [스트림에서는 부작용 없는 함수를 사용하라](https://github.com/KJJ924/effective-java/blob/master/src/main/java/com/jaejoon/demo/item46/46_스트림에서는_부작용_없는_함수를_사용하라_김재준.md)
